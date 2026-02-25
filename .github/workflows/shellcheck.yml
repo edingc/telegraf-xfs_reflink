@@ -1,0 +1,22 @@
+name: 'Run ShellCheck'
+
+on: [ push, pull_request ]
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'checkout repository'
+        uses: actions/checkout@v6
+
+      - name: 'install shellcheck'
+        run: |
+          wget -qO /tmp/shellcheck.tar.xz https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz
+          tar xf /tmp/shellcheck.tar.xz -C /opt
+
+      - name: 'print shellcheck version'
+        run: /opt/shellcheck-stable/shellcheck --version
+
+      - name: 'perform shellcheck analysis'
+        run: /opt/shellcheck-stable/shellcheck telegraf-xfs_reflink.sh
