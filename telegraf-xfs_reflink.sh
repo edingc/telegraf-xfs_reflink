@@ -26,7 +26,7 @@ while true; do
     used_space=$(df "$volume" | awk 'NR==2 { print $3 }')
     ratio=$(echo "scale=2; $sum_files / $used_space" | bc)
 
-    echo "xfs_reflink volume=\"$volume\",sum_files_KB=\"$sum_files\",used_space_KB=\"$used_space\",ratio=\"$ratio\""
+    echo "xfs_reflink volume=\"$volume\",sum_files_KB=$sum_files,used_space_KB=$used_space,ratio=$ratio"
 
     # sleep until woken by SIGUSR1 from telegraf
     pkill -P $$
